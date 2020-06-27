@@ -15,7 +15,7 @@ import lombok.ToString;
 public class DiscordJacksonConfig {
 
     @JsonProperty("discord-token")
-    private String token = "discord token goes here.";
+    private String token = "HERE";
 
     @JsonProperty("discord-prefix")
     private String prefix = "?>";

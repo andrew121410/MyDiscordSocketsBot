@@ -23,7 +23,7 @@ public class HelpCommand implements IDiscordCommand {
         this.main.getCommandManager().getCommandMap().forEach((k, v) -> {
             commandBuilder.append(this.main.getConfig().getPrefix());
             commandBuilder.append(k);
-            commandBuilder.append("\r\n ");
+            commandBuilder.append("\r\n");
         });
 
         EmbedBuilder embedBuilder = new EmbedBuilder()

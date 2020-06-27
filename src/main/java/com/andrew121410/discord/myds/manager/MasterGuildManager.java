@@ -7,11 +7,12 @@ import lombok.Getter;
 import net.dv8tion.jda.api.entities.Guild;
 
 import java.io.File;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class MasterGuildManager {
@@ -36,15 +37,15 @@ public class MasterGuildManager {
             return;
         }
 
-        final long startTime = System.nanoTime();
+        final Instant start = Instant.now();
         List<File> files = Arrays.stream(guildConfigFolder.listFiles()).filter(file -> file.getName().endsWith(".yml")).collect(Collectors.toList());
         files.forEach(file -> {
             GuildJacksonConfig guildJacksonConfig = ConfigUtils.loadGuildConfig(file);
             this.guildsConfigMap.put(guildJacksonConfig.getGuildID(), guildJacksonConfig);
         });
-        final long duration = System.nanoTime() - startTime;
-        long ms = TimeUnit.NANOSECONDS.toMillis(startTime - duration);
-        System.out.println("loadAllGuildsFromConfig() -> Time: " + ms + " Ms");
+        final Instant finish = Instant.now();
+        final long timeElapsed = Duration.between(start, finish).toMillis();
+        System.out.println("loadAllGuildsFromConfig() -> Elapsed time: " + timeElapsed + " Ms");
     }
 
     public GuildJacksonConfig getConfig(String id) {
